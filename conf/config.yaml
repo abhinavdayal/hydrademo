@@ -1,0 +1,18 @@
+defaults:
+  - override hydra/job_logging: colorlog
+  - override hydra/hydra_logging: colorlog
+dataloader:
+  _target_: dataloaders.iris.load_data
+  train: 0.7
+  shuffle: True
+model:
+  _target_: models.logreg.Model
+  random_state: 42
+evaluate:
+  _target_: inference.infer.infer
+metrics:
+  _target_: metrics.crossentropy.cross_entropy_loss
+  num_classes: 3
+output:
+  _target_: output.text.text_output
+  filename: output.txt
